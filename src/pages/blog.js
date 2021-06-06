@@ -1,35 +1,52 @@
 import matter from 'gray-matter'
 import Link from 'next/link'
+import Image from 'next/image'
 
 const Blog = (props) => {
   return (
     <>
-      <h1>ブログのぺーじ</h1>
-      {props.blogs.map((blog, index) => 
-        <div key={index}>
-          <h2>{blog.frontmatter.title}</h2>
-          <p>{blog.frontmatter.date}</p>
-          <Link href={`/blog/${blog.slug}`}>read more</Link>
+      <div>
+        <div>
+          <h1>ブログのぺーじ</h1>
+          {props.blogs.map((blog, index) => {
+            return (
+              <div key={index}>
+                <div>
+                  <h2>{blog.frontmatter.title}</h2>
+                  <p>{blog.frontmatter.export}</p>
+                  <p>{blog.frontmatter.date}</p>
+                  <Link href={`/blog/${blog.slug}`}>read more</Link>
+                </div>
+                <div>
+                  <Image
+                    src={blog.frontmatter.image}
+                    height={300}
+                    width={1000}
+                  />
+                </div>
+              </div>
+            )
+          })}
         </div>
-      )}
+      </div>
     </>
   )
 }
 
 export default Blog
 
-export async function getStaticProps(){
+export async function getStaticProps() {
   const blogs = ((context) => {
     const keys = context.keys() // マークダウンのデータ
     const values = keys.map(context) // マークダウンの中身
-    
+
     const data = keys.map((key, index) => {
       let slug = key.replace(/^.*[\\\/]/, '').slice(0, -3)
       const val = values[index]
       const document = matter(val.default)
       return {
         frontmatter: document.data,
-        slug: slug
+        slug: slug,
       }
     })
     return data
@@ -40,7 +57,7 @@ export async function getStaticProps(){
   })
   return {
     props: {
-      blogs: JSON.parse(JSON.stringify(orderedBlogs))
+      blogs: JSON.parse(JSON.stringify(orderedBlogs)),
     },
   }
 }
