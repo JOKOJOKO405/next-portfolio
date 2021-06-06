@@ -1,8 +1,11 @@
 import matter from 'gray-matter'
 
-const SingleBlog = () => {
+const SingleBlog = (props) => {
   return (
-    <h1>記事でーた</h1>
+    <>
+      <h1>{props.frontmatter.title}</h1>
+      
+    </>
   )
 }
 export default SingleBlog
@@ -19,8 +22,6 @@ export async function getStaticPaths(){
 
   const paths = blogSlugs.map(blogSlug => `/blog/${blogSlug}`)
 
-  console.log(paths)
-
   return {
     paths: paths,
     fallback: false
@@ -34,7 +35,8 @@ export async function getStaticProps(context){
 
   return {
     props: {
-
+      frontmatter: singleDocument.data,
+      markdownBody: singleDocument.content
     }
   }
 }
