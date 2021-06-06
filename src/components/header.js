@@ -6,9 +6,9 @@ const Header = () => {
     <header>
       <div>
         <div>
-          <Link href="/">
-            <Image src="/image/logo.png" alt="logo" width={50} height={50} />
-          </Link>
+          <a href="/">
+            <Image src="/images/logo.png" alt="logo" width={50} height={50} />
+          </a>
           <ul>
             <li><Link href="/blog">Blog</Link></li>
             <li><Link href="/contact">Contact</Link></li>
