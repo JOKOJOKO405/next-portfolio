@@ -2,23 +2,24 @@ import matter from 'gray-matter'
 import Link from 'next/link'
 import Image from 'next/image'
 import Layout from '../components/layout'
+import * as style from '../styles/blog.module.scss'
 
 const Blog = (props) => {
   return (
       <Layout>
-      <div>
-        <div>
+      <div className={style.wrapper}>
+        <div className={style.container}>
           <h1>ブログのぺーじ</h1>
           {props.blogs.map((blog, index) => {
             return (
-              <div key={index}>
-                <div>
+              <div key={index} className={style.blogCard}>
+                <div className={style.textContainer}>
                   <h2>{blog.frontmatter.title}</h2>
                   <p>{blog.frontmatter.export}</p>
                   <p>{blog.frontmatter.date}</p>
                   <Link href={`/blog/${blog.slug}`}>read more</Link>
                 </div>
-                <div>
+                <div className={style.cardImg}>
                   <Image
                     src={blog.frontmatter.image}
                     height={300}
