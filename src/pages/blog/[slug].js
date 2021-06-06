@@ -1,3 +1,5 @@
+import matter from 'gray-matter'
+
 const SingleBlog = () => {
   return (
     <h1>記事でーた</h1>
@@ -17,8 +19,22 @@ export async function getStaticPaths(){
 
   const paths = blogSlugs.map(blogSlug => `/blog/${blogSlug}`)
 
+  console.log(paths)
+
   return {
     paths: paths,
     fallback: false
+  }
+}
+
+export async function getStaticProps(context){
+  const {slug} = context.params
+  const data = await import (`../../data/${slug}.md`)
+  const singleDocument = matter(data.default)
+
+  return {
+    props: {
+
+    }
   }
 }
