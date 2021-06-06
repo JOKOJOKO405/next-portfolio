@@ -1,10 +1,12 @@
 import matter from 'gray-matter'
+import ReactMarkdown from 'react-markdown'
 
 const SingleBlog = (props) => {
   return (
     <>
       <h1>{props.frontmatter.title}</h1>
-      
+      <p>{props.frontmatter.data}</p>
+      <ReactMarkdown children={props.markdownBody} />
     </>
   )
 }

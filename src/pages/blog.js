@@ -34,10 +34,13 @@ export async function getStaticProps(){
     })
     return data
   })(require.context('../data', true, /\.md$/)) // ファイルを読み込む
-  console.log(blogs)
+
+  const orderedBlogs = blogs.sort((a, b) => {
+    return a.frontmatter.id - b.frontmatter.id
+  })
   return {
     props: {
-      blogs: blogs
+      blogs: JSON.parse(JSON.stringify(orderedBlogs))
     },
   }
 }
