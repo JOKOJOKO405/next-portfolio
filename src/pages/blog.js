@@ -8,7 +8,7 @@ const Blog = (props) => {
       {props.blogs.map((blog, index) => 
         <div key={index}>
           <h2>{blog.frontmatter.title}</h2>
-          <p>{blog.frontmatter.data}</p>
+          <p>{blog.frontmatter.date}</p>
           <Link href={`/blog/${blog.slug}`}>read more</Link>
         </div>
       )}
@@ -36,7 +36,7 @@ export async function getStaticProps(){
   })(require.context('../data', true, /\.md$/)) // ファイルを読み込む
 
   const orderedBlogs = blogs.sort((a, b) => {
-    return a.frontmatter.id - b.frontmatter.id
+    return b.frontmatter.id - a.frontmatter.id
   })
   return {
     props: {

@@ -5,7 +5,7 @@ const SingleBlog = (props) => {
   return (
     <>
       <h1>{props.frontmatter.title}</h1>
-      <p>{props.frontmatter.data}</p>
+      <p>{props.frontmatter.date}</p>
       <ReactMarkdown children={props.markdownBody} />
     </>
   )
